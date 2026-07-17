@@ -5,9 +5,27 @@
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
+        <div class="container">
         <img src="pic.jpg" alt="OS Image" class="avatar">
         <h3>Welcome to OS Web</h3>
         <p>Click <b>Unlock</b> to unlock the OS</p>
         <a href="desktop.html">Unlock</a>
+        </div>
+        <div class="taskbar">
+        <p>
+            <b>OS Web</b>
+        </p> 
+        <p id="timeElement">
+            <time datetime="2023-06-21T15:41">6/21/2023 3:41 PM</time>
+        </p>
+        </div>
     </body>
+    <script>
+    function updateTime() {
+        var currentTime = new Date().toLocaleString();
+        var timeText = document.querySelector("#timeElement");
+        timeText.innerHTML = currentTime;
+    }
+    setInterval(updateTime, 1000);
+    </script>
 </html>
