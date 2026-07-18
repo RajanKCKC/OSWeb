@@ -1,31 +1,43 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>OS Web</title>
-        <link rel="stylesheet" type="text/css" href="style.css">
-    </head>
-    <body>
-        <div class="container">
+
+<head>
+    <title>OS Web</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div id="welcome" class="window">
+        <div class="windowheader" id="welcomeheader">
+            <div class="controls">
+                <div id="welcomeclose" class="close"></div>
+                <div id="minimize" class="minimize"></div>
+                <div id="maximize" class="maximize"></div>
+            </div>
+            <p class="window-title">Welcome</p>
+        </div>
         <img src="pic.jpg" alt="OS Image" class="avatar">
         <h3>Welcome to OS Web</h3>
         <p>Click <b>Unlock</b> to unlock the OS</p>
         <a href="desktop.html">Unlock</a>
-        </div>
-        <div class="taskbar">
-        <p>
+    </div>
+    <div class="taskbar">
+        <p style="cursor: pointer" id="welcomeopen">
             <b>OS Web</b>
-        </p> 
+        </p>
         <p id="timeElement">
             <time datetime="2023-06-21T15:41">6/21/2023 3:41 PM</time>
         </p>
-        </div>
-    </body>
-    <script>
+    </div>
+</body>
+<script>
     function updateTime() {
         var currentTime = new Date().toLocaleString();
         var timeText = document.querySelector("#timeElement");
         timeText.innerHTML = currentTime;
     }
     setInterval(updateTime, 1000);
-    </script>
+</script>
+<script src="script.js"></script>
+
 </html>
