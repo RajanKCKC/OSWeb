@@ -7,6 +7,30 @@
 </head>
 
 <body>
+
+    <div id="desktopApps" style="padding-top: 16px; padding-left: 16px; display: flex; gap: 16px;">
+        <div class="icon" id="notesicon">
+            <img src="notes.png" alt="Notes App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
+            <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">Notes</p>
+        </div>
+    </div>
+
+    <div class="window" id="notes" style="top: calc(50% - 150px); display: none; left: calc(50% - 250px); ">
+        <div class="windowheader" id="notesheader">
+            <div class="controls">
+                <div class="close" id="notesclose"></div>
+                <div class="minimize"></div>
+                <div class="maximize"></div>
+            </div>
+            <p class="window-title">Notes</p>
+            <div style="width: 44px;"></div>
+        </div>
+
+        <div style="background-color: #fff; margin: 6px; border-radius: 12px; width: 480px; padding: 12px; box-sizing: border-box;">
+            <input type="text" id="userInputField" placeholder="Start typing here..." style="width: 100%; padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 16px; font-family: inherit; box-sizing: border-box; outline: none;" />
+        </div>
+    </div>
+
     <div id="welcome" class="window">
         <div class="windowheader" id="welcomeheader">
             <div class="controls">
@@ -16,11 +40,15 @@
             </div>
             <p class="window-title">Welcome</p>
         </div>
+        <br>
+        <center>
         <img src="pic.jpg" alt="OS Image" class="avatar">
+        </center>
         <h3>Welcome to OS Web</h3>
         <p>Click <b>Unlock</b> to unlock the OS</p>
         <a href="desktop.html">Unlock</a>
     </div>
+
     <div class="taskbar">
         <p style="cursor: pointer" id="welcomeopen">
             <b>OS Web</b>
@@ -29,12 +57,13 @@
             <time datetime="2023-06-21T15:41">6/21/2023 3:41 PM</time>
         </p>
     </div>
+
 </body>
 <script>
     function updateTime() {
         var currentTime = new Date().toLocaleString();
         var timeText = document.querySelector("#timeElement");
-        timeText.innerHTML = currentTime;
+        if(timeText) { timeText.innerHTML = currentTime; }
     }
     setInterval(updateTime, 1000);
 </script>
