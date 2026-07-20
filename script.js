@@ -5,7 +5,6 @@ function closeWindow(element) {
     if (element) element.style.display = "none";
 }
 
-// Fixed function to bring window to front when opened or clicked
 function openWindow(element) {
     if (!element) return;
     element.style.display = "flex";
@@ -52,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     var notesScreen = document.querySelector("#notes");
     var notesScreenClose = document.querySelector("#notesclose");
-    var notesIcon = document.querySelector("#notesicon"); // Hook up the entire app icon container
+    var notesIcon = document.querySelector("#notesicon");
 
     if (welcomeScreen) {
         dragElement(welcomeScreen);
@@ -64,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
         addWindowTapHandling(notesScreen);
     }
 
-    // Opens Notes when clicking the icon
     if (notesIcon && notesScreen) {
         notesIcon.addEventListener("click", (e) => {
             openWindow(notesScreen);
