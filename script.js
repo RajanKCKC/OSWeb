@@ -51,7 +51,11 @@ document.addEventListener("DOMContentLoaded", () => {
     var minecraftClose = document.querySelector("#minecraftclose");
     var minecraftIcon = document.querySelector("#minecrafticon");
 
-    [welcomeWindow, notesWindow, minecraftWindow].forEach((windowElement) => {
+    var solitaireWindow = document.querySelector("#solitaire");
+    var solitaireClose = document.querySelector("#solitaireclose");
+    var solitaireIcon = document.querySelector("#solitaireicon");
+
+    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow].forEach((windowElement) => {
         if (windowElement) {
             dragElement(windowElement);
             addWindowTapHandling(windowElement);
@@ -96,6 +100,21 @@ document.addEventListener("DOMContentLoaded", () => {
         minecraftClose.addEventListener("click", (e) => {
             e.stopPropagation();
             closeWindow(minecraftWindow);
+        });
+    }
+
+    if (solitaireIcon && solitaireWindow) {
+        solitaireIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            selectIcon(solitaireIcon);
+            openWindow(solitaireWindow);
+        });
+    }
+
+    if (solitaireClose && solitaireWindow) {
+        solitaireClose.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeWindow(solitaireWindow);
         });
     }
 });
