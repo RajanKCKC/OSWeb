@@ -45,6 +45,14 @@ body {
     margin: 0;
 }
 
+.window.maximized {
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: calc(100vh - 48px) !important; /* Subtract taskbar height */
+    border-radius: 0 !important;
+}
+
 .window {
     position: absolute;
     z-index: 9;

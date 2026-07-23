@@ -12,6 +12,25 @@ function openWindow(element) {
     element.style.zIndex = biggestIndex;
 }
 
+function toggleMaximize(element) {
+    if (!element) return;
+
+    if (element.classList.contains("maximized")) {
+        element.classList.remove("maximized");
+        element.style.top = element.dataset.prevTop || "100px";
+        element.style.left = element.dataset.prevLeft || "100px";
+        element.style.width = element.dataset.prevWidth || "";
+        element.style.height = element.dataset.prevHeight || "";
+    } else {
+        element.dataset.prevTop = element.style.top || "";
+        element.dataset.prevLeft = element.style.left || "";
+        element.dataset.prevWidth = element.style.width || "";
+        element.dataset.prevHeight = element.style.height || "";
+
+        element.classList.add("maximized");
+    }
+}
+
 function handleWindowTap(element) {
     biggestIndex++;
     element.style.zIndex = biggestIndex;
@@ -42,18 +61,22 @@ document.addEventListener("DOMContentLoaded", () => {
     var welcomeWindow = document.querySelector("#welcome");
     var welcomeClose = document.querySelector("#welcomeclose");
     var welcomeOpen = document.querySelector("#welcomeopen");
+    var welcomeMaximize = document.querySelector("#maximize");
 
     var notesWindow = document.querySelector("#notes");
     var notesClose = document.querySelector("#notesclose");
     var notesIcon = document.querySelector("#notesicon");
+    var notesMaximize = document.querySelector("#notesmaximize");
 
     var minecraftWindow = document.querySelector("#minecraft");
     var minecraftClose = document.querySelector("#minecraftclose");
     var minecraftIcon = document.querySelector("#minecrafticon");
+    var minecraftMaximize = document.querySelector("#minecraftmaximize");
 
     var solitaireWindow = document.querySelector("#solitaire");
     var solitaireClose = document.querySelector("#solitaireclose");
     var solitaireIcon = document.querySelector("#solitaireicon");
+    var solitaireMaximize = document.querySelector("#solitairemaximize");
 
     [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow].forEach((windowElement) => {
         if (windowElement) {
@@ -115,6 +138,34 @@ document.addEventListener("DOMContentLoaded", () => {
         solitaireClose.addEventListener("click", (e) => {
             e.stopPropagation();
             closeWindow(solitaireWindow);
+        });
+    }
+
+    if (welcomeMaximize && welcomeWindow) {
+        welcomeMaximize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMaximize(welcomeWindow);
+        });
+    }
+
+    if (minecraftMaximize && minecraftWindow) {
+        minecraftMaximize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMaximize(minecraftWindow);
+        });
+    }
+
+    if (notesMaximize && notesWindow) {
+        notesMaximize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMaximize(notesWindow);
+        });
+    }
+
+    if (solitaireMaximize && solitaireWindow) {
+        solitaireMaximize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMaximize(solitaireWindow);
         });
     }
 });
