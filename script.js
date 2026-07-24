@@ -57,26 +57,38 @@ function deselectIcon(element) {
     selectedIcon = undefined;
 }
 
+function toggleMinimize(element) {
+    if (!element) return;
+    element.style.display = "none";
+
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     var welcomeWindow = document.querySelector("#welcome");
     var welcomeClose = document.querySelector("#welcomeclose");
     var welcomeOpen = document.querySelector("#welcomeopen");
     var welcomeMaximize = document.querySelector("#maximize");
+    var welcomeMinimize = document.querySelector("#miniimize");
 
     var notesWindow = document.querySelector("#notes");
     var notesClose = document.querySelector("#notesclose");
     var notesIcon = document.querySelector("#notesicon");
     var notesMaximize = document.querySelector("#notesmaximize");
+    var notesMinimize = document.querySelector("#notesminimize");
+    var solitaireMinimize = document.querySelector("#solitaireminimize");
 
     var minecraftWindow = document.querySelector("#minecraft");
     var minecraftClose = document.querySelector("#minecraftclose");
     var minecraftIcon = document.querySelector("#minecrafticon");
     var minecraftMaximize = document.querySelector("#minecraftmaximize");
+    var minecraftMinimize = document.querySelector("#minecraftminimize");
+
 
     var solitaireWindow = document.querySelector("#solitaire");
     var solitaireClose = document.querySelector("#solitaireclose");
     var solitaireIcon = document.querySelector("#solitaireicon");
     var solitaireMaximize = document.querySelector("#solitairemaximize");
+    var solitaireMinimize = document.querySelector("#solitaireminimize");
 
     [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow].forEach((windowElement) => {
         if (windowElement) {
@@ -111,6 +123,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    if (notesMinimize && notesWindow0) {
+        notesMinimize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toogleMinimize(notesWindows);
+        })
+    }
+
     if (minecraftIcon && minecraftWindow) {
         minecraftIcon.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -126,6 +145,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    if (minecraftMinimize && minecraftWindow) {
+        minecraftMinimize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMinimize(minecraftWindow);
+        });
+    }
+
     if (solitaireIcon && solitaireWindow) {
         solitaireIcon.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -138,6 +164,13 @@ document.addEventListener("DOMContentLoaded", () => {
         solitaireClose.addEventListener("click", (e) => {
             e.stopPropagation();
             closeWindow(solitaireWindow);
+        });
+    }
+
+    if (solitaireMinimize && solitaireWindow) {
+        solitaireMinimize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMinimize(solitaireWindow);
         });
     }
 
@@ -166,6 +199,13 @@ document.addEventListener("DOMContentLoaded", () => {
         solitaireMaximize.addEventListener("click", (e) => {
             e.stopPropagation();
             toggleMaximize(solitaireWindow);
+        });
+    }
+
+    if (welcomeMinimize && welcomeWindow) {
+        welcomeMinimize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMinimize(welcomeWindow);
         });
     }
 });
