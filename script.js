@@ -3,6 +3,7 @@ var selectedIcon = undefined;
 
 function closeWindow(element) {
     if (element) element.style.display = "none";
+    removeTaskbarItem(element);
 }
 
 function openWindow(element) {
@@ -10,6 +11,7 @@ function openWindow(element) {
     element.style.display = "flex";
     biggestIndex++;
     element.style.zIndex = biggestIndex;
+    addTaskbarItem(element);
 }
 
 function toggleMaximize(element) {
@@ -63,12 +65,46 @@ function toggleMinimize(element) {
 
 }
 
+function addTaskbarItem(element) {
+    var taskbarApps = document.querySelector("#taskbarApps");
+    if (!taskbarApps) return;
+    if (document.querySelector("#taskbar-" + element.id)) return;
+
+    var titleEl = element.querySelector(".window-title");
+    var title = titleEl ? titleEl.innerText : element.id;
+
+    var item = document.createElement("p");
+    item.id = "taskbar-" + element.id;
+    item.innerText = title;
+    item.style.margin = "0";
+    item.style.cursor = "pointer";
+    item.style.padding = "4px 10px";
+    item.style.borderRadius = "6px";
+    item.style.backgroundColor = "rgba(255,255,255,0.4)";
+
+    item.addEventListener("click", () => {
+        if (element.style.display === "none") {
+            openWindow(element);
+        } else {
+            biggestIndex++;
+            element.style.zIndex = biggestIndex;
+        }
+    });
+
+    taskbarApps.appendChild(item);
+}
+
+function removeTaskbarItem(element) {
+    var item = document.querySelector("#taskbar-" + element.id);
+    if (item) item.remove();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     var welcomeWindow = document.querySelector("#welcome");
     var welcomeClose = document.querySelector("#welcomeclose");
     var welcomeOpen = document.querySelector("#welcomeopen");
     var welcomeMaximize = document.querySelector("#maximize");
-    var welcomeMinimize = document.querySelector("#miniimize");
+    var welcomeMinimize = document.querySelector("#minimize");
 
     var notesWindow = document.querySelector("#notes");
     var notesClose = document.querySelector("#notesclose");
@@ -123,11 +159,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    if (notesMinimize && notesWindow0) {
+    if (notesMinimize && notesWindow) {
         notesMinimize.addEventListener("click", (e) => {
             e.stopPropagation();
-            toogleMinimize(notesWindows);
-        })
+            toggleMinimize(notesWindow);
+        });
     }
 
     if (minecraftIcon && minecraftWindow) {
