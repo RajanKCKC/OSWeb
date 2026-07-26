@@ -111,7 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
     var notesIcon = document.querySelector("#notesicon");
     var notesMaximize = document.querySelector("#notesmaximize");
     var notesMinimize = document.querySelector("#notesminimize");
-    var solitaireMinimize = document.querySelector("#solitaireminimize");
 
     var minecraftWindow = document.querySelector("#minecraft");
     var minecraftClose = document.querySelector("#minecraftclose");
@@ -126,7 +125,13 @@ document.addEventListener("DOMContentLoaded", () => {
     var solitaireMaximize = document.querySelector("#solitairemaximize");
     var solitaireMinimize = document.querySelector("#solitaireminimize");
 
-    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow].forEach((windowElement) => {
+    var googleWindow = document.querySelector("#google");
+    var googleClose = document.querySelector("#googleclose");
+    var googleIcon = document.querySelector("#googleicon");
+    var googleMaximize = document.querySelector("#googlemaximize");
+    var googleMinimize = document.querySelector("#googleminimize");
+
+    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow].forEach((windowElement) => {
         if (windowElement) {
             dragElement(windowElement);
             addWindowTapHandling(windowElement);
@@ -244,6 +249,36 @@ document.addEventListener("DOMContentLoaded", () => {
             toggleMinimize(welcomeWindow);
         });
     }
+
+    if (googleIcon && googleWindow) {
+        googleIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            selectIcon(googleIcon);
+            openWindow(googleWindow);
+        });
+    }
+
+    if (googleClose && googleWindow) {
+        googleClose.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeWindow(googleWindow);
+        });
+    }
+
+    if (googleMinimize && googleWindow) {
+        googleMinimize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMinimize(googleWindow);
+        });
+    }
+
+    if (googleMaximize && googleWindow) {
+        googleMaximize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMaximize(googleWindow);
+        });
+    }
+
 });
 
 function dragElement(elmnt) {

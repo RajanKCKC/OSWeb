@@ -18,14 +18,24 @@
     <div id="desktopApps" style="padding-top: 16px; padding-left: 16px; display: flex; gap: 16px;">
         <div class="icon" id="minecrafticon">
             <img src="minecraft.png" alt="Minecraft App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
-            <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">Minecraft</p>
+            <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">Minecraft
+            </p>
         </div>
     </div>
 
     <div id="desktopApps" style="padding-top: 16px; padding-left: 16px; display: flex; gap: 16px;">
         <div class="icon" id="solitaireicon">
             <img src="solitaire.png" alt="Solitaire App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
-            <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">Solitaire</p>
+            <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">Solitaire
+            </p>
+        </div>
+    </div>
+
+    <div id="desktopApps" style="padding-top: 16px; padding-left: 16px; display: flex; gap: 16px;">
+        <div class="icon" id="googleicon">
+            <img src="google.png" alt="Google App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
+            <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">Google
+            </p>
         </div>
     </div>
 
@@ -39,8 +49,10 @@
             <p class="window-title">Notes</p>
             <div style="width: 44px;"></div>
         </div>
-        <div  class="window-content" style="background-color: #fff; margin: 6px; border-radius: 12px; width: 480px; padding: 12px; box-sizing: border-box;">
-            <input type="text" id="userInputField" placeholder="Start typing here..." style="width: 100%; padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 16px; font-family: inherit; box-sizing: border-box; outline: none;" />
+        <div class="window-content"
+            style="background-color: #fff; margin: 6px; border-radius: 12px; width: 480px; padding: 12px; box-sizing: border-box;">
+            <input type="text" id="userInputField" placeholder="Start typing here..."
+                style="width: 100%; padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 16px; font-family: inherit; box-sizing: border-box; outline: none;" />
         </div>
     </div>
 
@@ -54,8 +66,10 @@
             <p class="window-title">Minecraft</p>
             <div style="width: 44px;"></div>
         </div>
-        <div  class="window-content" style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 0; box-sizing: border-box; overflow: hidden; flex: 1; min-height: 0;">
-            <iframe src="https://classic.minecraft.net/" title="Minecraft" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
+        <div class="window-content"
+            style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 0; box-sizing: border-box; overflow: hidden; flex: 1; min-height: 0;">
+            <iframe src="https://classic.minecraft.net/" title="Minecraft"
+                style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
         </div>
     </div>
 
@@ -69,8 +83,27 @@
             <p class="window-title">Solitaire</p>
             <div style="width: 44px;"></div>
         </div>
-        <div  class="window-content" style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 0; box-sizing: border-box; overflow: hidden; flex: 1; min-height: 0;">
-            <iframe src="https://play.famobi.com/solitaire-klondike" title="Solitaire" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
+        <div class="window-content"
+            style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 0; box-sizing: border-box; overflow: hidden; flex: 1; min-height: 0;">
+            <iframe src="https://play.famobi.com/solitaire-klondike" title="Solitaire"
+                style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
+        </div>
+    </div>
+
+    <div class="window" id="google" style="top: 31px; display: none; left: 32px; width: 600px; height: 400px;">
+        <div class="windowheader" id="googleheader">
+            <div class="controls">
+                <div class="close" id="googleclose"></div>
+                <div class="minimize" id="googleminimize"></div>
+                <div class="maximize" id="googlemaximize"></div>
+            </div>
+            <p class="window-title">Google</p>
+            <div style="width: 44px;"></div>
+        </div>
+        <div class="window-content"
+            style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 0; box-sizing: border-box; overflow: hidden; flex: 1; min-height: 0;">
+            <iframe src="https://google.com/search?igu=1" title="Google"
+                style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
         </div>
     </div>
 
@@ -85,7 +118,7 @@
         </div>
         <br>
         <center>
-        <img src="pic.jpg" alt="OS Image" class="avatar">
+            <img src="pic.jpg" alt="OS Image" class="avatar">
         </center>
         <h3>Welcome to OS Web</h3>
         <p>Explore apps, take notes, and enjoy your web desktop enviroment.</p>
@@ -106,7 +139,7 @@
     function updateTime() {
         var currentTime = new Date().toLocaleString();
         var timeText = document.querySelector("#timeElement");
-        if(timeText) { timeText.innerHTML = currentTime; }
+        if (timeText) { timeText.innerHTML = currentTime; }
     }
     setInterval(updateTime, 1000);
 </script>
