@@ -153,6 +153,18 @@ body {
     outline: 1px dashed rgba(255, 255, 255, 0.4);
 }
 
+#welcome {
+    width: min(900px, calc(100vw - 64px));
+    height: min(640px, calc(100vh - 128px));
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#welcome iframe {
+    overflow: hidden;
+}
+
 .window#minecraft {
     width: calc(100vw - 32px);
     height: calc(100vh - 96px);
