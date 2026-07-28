@@ -39,6 +39,14 @@
         </div>
     </div>
 
+    <div id="desktopApps" style="padding-top: 16px; padding-left: 16px; display: flex; gap: 16px;">
+        <div class="icon" id="painticon">
+            <img src="paint.png" alt="Paint App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
+            <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">Paint
+            </p>
+        </div>
+    </div>
+
     <div class="window" id="notes" style="top: calc(50% - 150px); display: none; left: calc(50% - 250px); ">
         <div class="windowheader" id="notesheader">
             <div class="controls">
@@ -102,6 +110,22 @@
         <div class="window-content"
             style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 0; box-sizing: border-box; overflow: hidden; flex: 1; min-height: 0;">
             <iframe src="https://google.com/search?igu=1" title="Google" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
+        </div>
+    </div>
+
+    <div class="window" id="paint" style="top: 31px; display: none; left: 32px; width: 600px; height: 400px;">
+        <div class="windowheader" id="paintheader">
+            <div class="controls">
+                <div class="close" id="paintclose"></div>
+                <div class="minimize" id="paintminimize"></div>
+                <div class="maximize" id="paintmaximize"></div>
+            </div>
+            <p class="window-title">Paint</p>
+            <div style="width: 44px;"></div>
+        </div>
+        <div class="window-content"
+            style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 0; box-sizing: border-box; overflow: hidden; flex: 1; min-height: 0;">
+            <iframe src="paint.html" title="Paint" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
         </div>
     </div>
 

@@ -131,7 +131,13 @@ document.addEventListener("DOMContentLoaded", () => {
     var googleMaximize = document.querySelector("#googlemaximize");
     var googleMinimize = document.querySelector("#googleminimize");
 
-    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow].forEach((windowElement) => {
+    var paintWindow = document.querySelector("#paint");
+    var paintClose = document.querySelector("#paintclose");
+    var paintIcon = document.querySelector("#painticon");
+    var paintMaximize = document.querySelector("#paintmaximize");
+    var paintMinimize = document.querySelector("#paintminimize");
+
+    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow].forEach((windowElement) => {
         if (windowElement) {
             dragElement(windowElement);
             addWindowTapHandling(windowElement);
@@ -276,6 +282,35 @@ document.addEventListener("DOMContentLoaded", () => {
         googleMaximize.addEventListener("click", (e) => {
             e.stopPropagation();
             toggleMaximize(googleWindow);
+        });
+    }
+
+    if (paintIcon && paintWindow) {
+        paintIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            selectIcon(paintIcon);
+            openWindow(paintWindow);
+        });
+    }
+
+    if (paintClose && paintWindow) {
+        paintClose.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeWindow(paintWindow);
+        });
+    }
+
+    if (paintMinimize && paintWindow) {
+        paintMinimize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMinimize(paintWindow);
+        });
+    }
+
+    if (paintMaximize && paintWindow) {
+        paintMaximize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMaximize(paintWindow);
         });
     }
 

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paint Clone</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
+        }
+
+        .paint-clone {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 12px;
+            box-sizing: border-box;
+        }
+
+        .paint-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .paint-tools input,
+        .paint-tools button {
+            padding: 8px 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        #brush-size {
+            background-color: #333;
+            color: white;
+        }
+
+        #color-picker {
+            width: 44px;
+            height: 38px;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        #pen {
+            background-color: #0800ff;
+            color: white;
+        }
+
+        #eraser {
+            background-color: #ee00cf;
+            color: white;
+        }
+
+        #clear-canvas {
+            background-color: #ff3333;
+            color: white;
+        }
+
+        canvas {
+            flex: 1;
+            width: 100%;
+            height: calc(100vh - 110px);
+            border: 2px solid black;
+            background: white;
+            cursor: crosshair;
+            touch-action: none;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="paint-clone">
+        <div class="paint-tools">
+            <input type="range" id="brush-size" min="1" max="50" value="5">
+            <input type="color" id="color-picker" value="#000000">
+            <button id="pen">Pen</button>
+            <button id="eraser">Eraser</button>
+            <button id="clear-canvas">Clear</button>
+        </div>
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const brushSizeInput = document.getElementById('brush-size');
+        const colorPicker = document.getElementById('color-picker');
+        const clearCanvasButton = document.getElementById('clear-canvas');
+        const penButton = document.getElementById('pen');
+        const eraserButton = document.getElementById('eraser');
+
+        let isDrawing = false;
+        let activeTool = 'pen';
+
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            const ratio = window.devicePixelRatio || 1;
+
+            canvas.width = Math.floor(rect.width * ratio);
+            canvas.height = Math.floor(rect.height * ratio);
+            ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.lineWidth = Number(brushSizeInput.value);
+            updateStrokeStyle();
+        }
+
+        function getCanvasPoint(event) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: event.clientX - rect.left,
+                y: event.clientY - rect.top
+            };
+        }
+
+        function startPosition(event) {
+            event.preventDefault();
+            isDrawing = true;
+            const point = getCanvasPoint(event);
+            ctx.beginPath();
+            ctx.moveTo(point.x, point.y);
+        }
+
+        function endPosition(event) {
+            if (!isDrawing) return;
+            event?.preventDefault();
+            isDrawing = false;
+            ctx.beginPath();
+        }
+
+        function draw(event) {
+            if (!isDrawing) return;
+            event.preventDefault();
+            const point = getCanvasPoint(event);
+            ctx.lineTo(point.x, point.y);
+            ctx.stroke();
+        }
+
+        function updateStrokeStyle() {
+            if (activeTool === 'eraser') {
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0)';
+            } else {
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.strokeStyle = colorPicker.value;
+            }
+            ctx.lineWidth = Number(brushSizeInput.value);
+        }
+
+        function activatePen() {
+            activeTool = 'pen';
+            updateStrokeStyle();
+        }
+
+        function activateEraser() {
+            activeTool = 'eraser';
+            updateStrokeStyle();
+        }
+
+        canvas.addEventListener('pointerdown', startPosition);
+        canvas.addEventListener('pointermove', draw);
+        canvas.addEventListener('pointerup', endPosition);
+        canvas.addEventListener('pointerleave', endPosition);
+        canvas.addEventListener('pointercancel', endPosition);
+
+        clearCanvasButton.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        brushSizeInput.addEventListener('input', updateStrokeStyle);
+        colorPicker.addEventListener('input', updateStrokeStyle);
+        penButton.addEventListener('click', activatePen);
+        eraserButton.addEventListener('click', activateEraser);
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        activatePen();
+    </script>
+</body>
+
+</html>
