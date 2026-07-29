@@ -8,7 +8,7 @@ body {
 
 body {
     background-color: #c9ffcf;
-    background-image: url(wallpaper.jpg);
+    background-image: url(img/wallpaper.jpg);
     background-size: cover;
     background-position: center;
 }
@@ -128,10 +128,22 @@ body {
     margin: 0;
 }
 
+.desktop-apps {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 12px;
+    padding: 16px 16px 64px;
+    box-sizing: border-box;
+    max-width: calc(100vw - 32px);
+    height: calc(100vw - 32px);
+}
+
 .icon {
     text-align: center;
     padding: 6px;
     width: fit-content;
+    flex: 0 0 auto;
 }
 
 .icon img {
@@ -170,6 +182,11 @@ body {
     height: calc(100vh - 96px);
     left: 16px;
     top: 16px;
+}
+
+.window#calculator {
+    width: calc((100vw - 1024px) * 2);
+    height: calc((100vh - 512px) * 2);
 }
 
 .window#minecraft .window-content {

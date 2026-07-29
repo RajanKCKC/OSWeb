@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            outline: none;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f3ef;
+            padding: 20px;
+        }
+
+        .calculator {
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .screen {
+            background-color: #f3f5ee;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            text-align: right;
+        }
+
+        .previous-operand {
+            color: #727a75;
+            font-size: 0.9rem;
+            min-height: 1.2rem;
+        }
+
+        .current-operand {
+            color: #1d2a23;
+            font-size: 2.2rem;
+            font-weight: 600;
+            min-height: 2.6rem;
+            word-break: break-all;
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            border: none;
+            background-color: #efece6;
+            color: #2b2d42;
+            font-size: 1.25rem;
+            font-weight: 600;
+            padding: 16px 0;
+            border-radius: 12px;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.1s ease;
+        }
+
+        button:hover {
+            background-color: #e2ded6;
+        }
+
+        button:active {
+            background-color: #d5d0c6;
+        }
+
+        button.operator {
+            background-color: #dedad2;
+        }
+
+        button.action-ac {
+            background-color: #e07a5f;
+            color: #ffffff;
+        }
+
+        button.action-ac:hover {
+            background-color: #d0694e;
+        }
+
+        button.equals {
+            background-color: #2a9d8f;
+            color: #ffffff;
+        }
+
+        button.equals:hover {
+            background-color: #23857a;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="calculator">
+        <div class="screen">
+            <div id="previous" class="previous-operand"></div>
+            <div id="current" class="current-operand">0</div>
+        </div>
+
+        <div class="keypad">
+            <button class="action-ac" onclick="clearAll()">AC</button>
+            <button class="operator" onclick="toggleSign()">±</button>
+            <button class="operator" onclick="appendOperator('%')">%</button>
+            <button class="operator" onclick="appendOperator('/')">÷</button>
+
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button class="operator" onclick="appendOperator('*')">×</button>
+
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button class="operator" onclick="appendOperator('-')">−</button>
+
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button class="operator" onclick="appendOperator('+')">+</button>
+
+            <button onclick="appendNumber('0')">0</button>
+            <button onclick="appendNumber('.')">.</button>
+            <button class="equals" style="grid-column: span 2;" onclick="compute()">=</button>
+        </div>
+    </div>
+
+    <script>
+        let currentInput = '0';
+        let previousInput = '';
+        let operation = null;
+        let resetScreen = false;
+
+        const currentDisplay = document.getElementById('current');
+        const previousDisplay = document.getElementById('previous');
+
+        function updateDisplay() {
+            currentDisplay.innerText = currentInput;
+            if (operation != null) {
+                let symbol = operation;
+                if (operation === '*') symbol = '×';
+                if (operation === '/') symbol = '÷';
+                if (operation === '-') symbol = '−';
+                previousDisplay.innerText = `${previousInput} ${symbol}`;
+            } else {
+                previousDisplay.innerText = '';
+            }
+        }
+
+        function appendNumber(num) {
+            if (currentInput === '0' || resetScreen) {
+                currentInput = (num === '.') ? '0.' : num;
+                resetScreen = false;
+            } else {
+                if (num === '.' && currentInput.includes('.')) return;
+                currentInput += num;
+            }
+            updateDisplay();
+        }
+
+        function appendOperator(op) {
+            if (operation !== null) compute();
+            previousInput = currentInput;
+            operation = op;
+            resetScreen = true;
+            updateDisplay();
+        }
+
+        function toggleSign() {
+            if (currentInput === '0' || currentInput === 'Error') return;
+            currentInput = (parseFloat(currentInput) * -1).toString();
+            updateDisplay();
+        }
+
+        function clearAll() {
+            currentInput = '0';
+            previousInput = '';
+            operation = null;
+            updateDisplay();
+        }
+
+        function compute() {
+            const prev = parseFloat(previousInput);
+            const current = parseFloat(currentInput);
+
+            if (isNaN(prev) || isNaN(current)) return;
+
+            let result;
+            switch (operation) {
+                case '+': result = prev + current; break;
+                case '-': result = prev - current; break;
+                case '*': result = prev * current; break;
+                case '/':
+                    if (current === 0) {
+                        currentInput = 'Error';
+                        operation = null;
+                        previousInput = '';
+                        resetScreen = true;
+                        updateDisplay();
+                        return;
+                    }
+                    result = prev / current;
+                    break;
+                case '%': result = prev % current; break;
+                default: return;
+            }
+
+            currentInput = (Math.round(result * 1e8) / 1e8).toString();
+            operation = null;
+            previousInput = '';
+            resetScreen = true;
+            updateDisplay();
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if ((e.key >= '0' && e.key <= '9') || e.key === '.') appendNumber(e.key);
+            if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/' || e.key === '%') appendOperator(e.key);
+            if (e.key === 'Enter' || e.key === '=') { e.preventDefault(); compute(); }
+            if (e.key === 'Backspace') {
+                if (currentInput.length === 1 || currentInput === 'Error') currentInput = '0';
+                else currentInput = currentInput.slice(0, -1);
+                updateDisplay();
+            }
+            if (e.key === 'Escape' || e.key.toLowerCase() === 'c') clearAll();
+        });
+    </script>
+</body>
+
+</html>

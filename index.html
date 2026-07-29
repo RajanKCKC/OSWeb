@@ -8,40 +8,38 @@
 
 <body>
 
-    <div id="desktopApps" style="padding-top: 16px; padding-left: 16px; display: flex; gap: 16px;">
+    <div class="desktop-apps">
+        <div class="icon" id="calculatoricon">
+            <img src="img/calculator.png" alt="Calculator App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
+            <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">Calculator
+            </p>
+        </div>
+
         <div class="icon" id="notesicon">
-            <img src="notes.png" alt="Notes App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
+            <img src="img/notes.png" alt="Notes App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
             <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">Notes</p>
         </div>
-    </div>
 
-    <div id="desktopApps" style="padding-top: 16px; padding-left: 16px; display: flex; gap: 16px;">
         <div class="icon" id="minecrafticon">
-            <img src="minecraft.png" alt="Minecraft App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
+            <img src="img/minecraft.png" alt="Minecraft App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
             <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">Minecraft
             </p>
         </div>
-    </div>
 
-    <div id="desktopApps" style="padding-top: 16px; padding-left: 16px; display: flex; gap: 16px;">
         <div class="icon" id="solitaireicon">
-            <img src="solitaire.png" alt="Solitaire App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
+            <img src="img/solitaire.png" alt="Solitaire App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
             <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">Solitaire
             </p>
         </div>
-    </div>
 
-    <div id="desktopApps" style="padding-top: 16px; padding-left: 16px; display: flex; gap: 16px;">
         <div class="icon" id="googleicon">
-            <img src="google.png" alt="Google App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
+            <img src="img/google.png" alt="Google App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
             <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">Google
             </p>
         </div>
-    </div>
 
-    <div id="desktopApps" style="padding-top: 16px; padding-left: 16px; display: flex; gap: 16px;">
         <div class="icon" id="painticon">
-            <img src="paint.png" alt="Paint App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
+            <img src="img/paint.png" alt="Paint App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
             <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">Paint
             </p>
         </div>
@@ -60,6 +58,22 @@
         <div class="window-content" style="background-color: #fff; margin: 6px; border-radius: 12px; width: 480px; padding: 12px; box-sizing: border-box;">
             <input type="text" id="userInputField" placeholder="Start typing here..."
                 style="width: 100%; padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 16px; font-family: inherit; box-sizing: border-box; outline: none;" />
+        </div>
+    </div>
+
+    <div class="window" id="calculator" style="top: 31px; display: none; left: 32px; width: 384px; height: 576px;">
+        <div class="windowheader" id="calculatorheader">
+            <div class="controls">
+                <div class="close" id="calculatorclose"></div>
+                <div class="minimize" id="calculatorminimize"></div>
+                <div class="maximize" id="calculatormaximize"></div>
+            </div>
+            <p class="window-title">Calculator</p>
+            <div style="width: 44px;"></div>
+        </div>
+        <div class="window-content"
+            style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 0; box-sizing: border-box; overflow: hidden; flex: 1; min-height: 0;">
+            <iframe src="app/calculator.html" title="Calculator" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
         </div>
     </div>
 
@@ -125,7 +139,7 @@
         </div>
         <div class="window-content"
             style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 0; box-sizing: border-box; overflow: hidden; flex: 1; min-height: 0;">
-            <iframe src="paint.html" title="Paint" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
+            <iframe src="app/paint.html" title="Paint" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
         </div>
     </div>
 
@@ -138,7 +152,7 @@
             </div>
             <p class="window-title">Welcome</p>
         </div>
-        <iframe src="welcome.html" title="Welcome" style="width: 100%; height: 100%; border: 0; display: block; overflow: auto;"></iframe>
+        <iframe src="app/welcome.html" title="Welcome" style="width: 100%; height: 100%; border: 0; display: block; overflow: auto;"></iframe>
     </div>
 
     <div class="taskbar">

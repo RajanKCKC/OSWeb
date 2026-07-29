@@ -106,6 +106,12 @@ document.addEventListener("DOMContentLoaded", () => {
     var welcomeMaximize = document.querySelector("#maximize");
     var welcomeMinimize = document.querySelector("#minimize");
 
+    var calculatorWindow = document.querySelector("#calculator");
+    var calculatorClose = document.querySelector("#calculatorclose");
+    var calculatorIcon = document.querySelector("#calculatoricon");
+    var calculatorMaximize = document.querySelector("#calculatormaximize");
+    var calculatorMinimize = document.querySelector("#calculatorminimize");
+
     var notesWindow = document.querySelector("#notes");
     var notesClose = document.querySelector("#notesclose");
     var notesIcon = document.querySelector("#notesicon");
@@ -137,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
     var paintMaximize = document.querySelector("#paintmaximize");
     var paintMinimize = document.querySelector("#paintminimize");
 
-    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow].forEach((windowElement) => {
+    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow, calculatorWindow].forEach((windowElement) => {
         if (windowElement) {
             dragElement(windowElement);
             addWindowTapHandling(windowElement);
@@ -253,6 +259,35 @@ document.addEventListener("DOMContentLoaded", () => {
         welcomeMinimize.addEventListener("click", (e) => {
             e.stopPropagation();
             toggleMinimize(welcomeWindow);
+        });
+    }
+
+    if (calculatorIcon && calculatorWindow) {
+        calculatorIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            selectIcon(calculatorIcon);
+            openWindow(calculatorWindow);
+        });
+    }
+
+    if (calculatorClose && calculatorWindow) {
+        calculatorClose.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeWindow(calculatorWindow);
+        });
+    }
+
+    if (calculatorMinimize && calculatorWindow) {
+        calculatorMinimize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMinimize(calculatorWindow);
+        });
+    }
+
+    if (calculatorMaximize && calculatorWindow) {
+        calculatorMaximize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMaximize(calculatorWindow);
         });
     }
 
