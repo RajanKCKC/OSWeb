@@ -38,6 +38,12 @@
             </p>
         </div>
 
+        <div class="icon" id="calendaricon">
+            <img src="img/calendar.png" alt="Calendar App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
+            <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">Calendar
+            </p>
+        </div>
+
         <div class="icon" id="painticon">
             <img src="img/paint.png" alt="Paint App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
             <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">Paint
@@ -94,6 +100,22 @@
         </div>
     </div>
 
+    <div class="window" id="calendar" style="top: 31px; display: none; left: 32px; width: 600px; height: 500px;">
+        <div class="windowheader" id="calendarheader">
+            <div class="controls">
+                <div class="close" id="calendarclose"></div>
+                <div class="minimize" id="calendarminimize"></div>
+                <div class="maximize" id="calendarmaximize"></div>
+            </div>
+            <p class="window-title">Calendar</p>
+            <div style="width: 44px;"></div>
+        </div>
+        <div class="window-content"
+            style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 0; box-sizing: border-box; overflow: hidden; flex: 1; min-height: 0;">
+            <iframe src="app/calendar.html" title="Calendar" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
+        </div>
+    </div>
+
     <div class="window" id="solitaire" style="top: 31px; display: none; left: 32px; width: 600px; height: 400px; ">
         <div class="windowheader" id="solitaireheader">
             <div class="controls">
@@ -106,7 +128,7 @@
         </div>
         <div class="window-content"
             style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 0; box-sizing: border-box; overflow: hidden; flex: 1; min-height: 0;">
-            <iframe src="https://play.famobi.com/solitaire-klondike" title="Solitaire"
+            <iframe src="https://foss-card-games.github.io/Solitairey/" title="Solitaire"
                 style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
         </div>
     </div>
@@ -151,6 +173,7 @@
                 <div id="maximize" class="maximize"></div>
             </div>
             <p class="window-title">Welcome</p>
+            <div style="width: 44px;"></div>
         </div>
         <iframe src="app/welcome.html" title="Welcome" style="width: 100%; height: 100%; border: 0; display: block; overflow: auto;"></iframe>
     </div>

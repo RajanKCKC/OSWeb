@@ -143,7 +143,13 @@ document.addEventListener("DOMContentLoaded", () => {
     var paintMaximize = document.querySelector("#paintmaximize");
     var paintMinimize = document.querySelector("#paintminimize");
 
-    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow, calculatorWindow].forEach((windowElement) => {
+    var calendarWindow = document.querySelector("#calendar");
+    var calendarClose = document.querySelector("#calendarclose");
+    var calendarIcon = document.querySelector("#calendaricon");
+    var calendarMaximize = document.querySelector("#calendarmaximize");
+    var calendarMinimize = document.querySelector("#calendarminimize");
+
+    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow, calculatorWindow, calendarWindow].forEach((windowElement) => {
         if (windowElement) {
             dragElement(windowElement);
             addWindowTapHandling(windowElement);
@@ -346,6 +352,35 @@ document.addEventListener("DOMContentLoaded", () => {
         paintMaximize.addEventListener("click", (e) => {
             e.stopPropagation();
             toggleMaximize(paintWindow);
+        });
+    }
+
+    if (calendarIcon && calendarWindow) {
+        calendarIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            selectIcon(calendarIcon);
+            openWindow(calendarWindow);
+        });
+    }
+
+    if (calendarClose && calendarWindow) {
+        calendarClose.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeWindow(calendarWindow);
+        });
+    }
+
+    if (calendarMinimize && calendarWindow) {
+        calendarMinimize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMinimize(calendarWindow);
+        });
+    }
+
+    if (calendarMaximize && calendarWindow) {
+        calendarMaximize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMaximize(calendarWindow);
         });
     }
 

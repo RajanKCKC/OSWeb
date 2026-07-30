@@ -130,13 +130,14 @@ body {
 
 .desktop-apps {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     align-content: flex-start;
     gap: 12px;
-    padding: 16px 16px 64px;
+    padding: 16px;
     box-sizing: border-box;
-    max-width: calc(100vw - 32px);
-    height: calc(100vw - 32px);
+    width: 100vw;
+    height: calc(100vh - 64px); 
 }
 
 .icon {

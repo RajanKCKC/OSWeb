@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Calendar</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: cencenter;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0 10px;
+            background: transparent;
+        }
+
+        .wrapper {
+            width: 450px;
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 25px 30px 10px;
+        }
+
+        .icons {
+            display: flex;
+            gap: 4px;
+        }
+
+        .icons span {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            line-height: 38px;
+            text-align: center;
+            font-size: 1.4rem;
+            color: #878787;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .icons span:hover {
+            background: #f2f2f2;
+        }
+
+        .current-date {
+            font-size: 1.45rem;
+            font-weight: 500;
+        }
+
+        .calendar {
+            padding: 20px;
+        }
+
+        .calendar ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            text-align: center;
+        }
+
+        .calendar .days {
+            margin-bottom: 20px;
+        }
+
+        .calendar li {
+            width: calc(100% / 7);
+            font-size: 1.07rem;
+            color: #333;
+        }
+
+        .calendar .weeks li {
+            font-weight: 500;
+            cursor: default;
+        }
+
+        .calendar .days li {
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+
+        .days li.inactive {
+            color: #aaa;
+        }
+
+        .days li.active {
+            color: #fff;
+        }
+
+        .days li::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .days li.active::before {
+            background: #9b59b6;
+        }
+
+        .days li:not(.active):hover::before {
+            background: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <p class="current-date"></p>
+            <div class="icons">
+                <span id="" prev">&#10094;</span>
+                <span id="next">&#10095;</span>
+            </div>
+        </header>
+
+        <div class="calendar">
+            <ul class="weeks">
+                <li>Sun</li>
+                <li>Mon</li>
+                <li>Tue</li>
+                <li>Wed</li>
+                <li>Thu</li>
+                <li>Fri</li>
+                <li>Sat</li>
+            </ul>
+            <ul class="days"></ul>
+        </div>
+    </div>
+
+    <script>
+        const daysTag = document.querySelector(".days");
+        const currentDate = document.querySelector(".current-date");
+        const prevNextIcon = document.querySelectorAll(".icons span");
+
+        let date = new Date();
+        let currYear = date.getFullYear();
+        let currMonth = date.getMonth();
+
+        const months = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        const renderCalendar = () => {
+            const firstDay = new Date(currYear, currMonth, 1).getDay();
+            const lastDate = new Date(currYear, currMonth + 1, 0).getDate();
+            const lastDay = new Date(currYear, currMonth, lastDate).getDay();
+            const lastDatePrevMonth = new Date(currYear, currMonth, 0).getDate();
+
+            let liTag = "";
+
+            for (let i = firstDay; i > 0; i--) {
+                liTag += `<li class="inactive">${lastDatePrevMonth - i + 1}</li>`;
+            }
+
+            for (let i = 1; i <= lastDate; i++) {
+                const isToday = i === date.getDate() && currMonth === new Date().getMonth() && currYear === new Date().getFullYear() ? "active" : "";
+                liTag += `<li class="${isToday}">${i}</li>`;
+            }
+
+            for (let i = lastDay; i < 6; i++) {
+                liTag += `<li class="inactive">${i - lastDay + 1}</li>`;
+            }
+
+            currentDate.textContent = `${months[currMonth]} ${currYear}`;
+            daysTag.innerHTML = liTag;
+        };
+
+        renderCalendar();
+
+        prevNextIcon.forEach((icon) => {
+            icon.addEventListener("click", () => {
+                currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+
+                if (currMonth < 0 || currMonth > 11) {
+                    date = new Date(currYear, currMonth, new Date().getDate());
+                    currYear = date.getFullYear();
+                    currMonth = date.getMonth();
+                } else {
+                    date = new Date();
+                }
+
+                renderCalendar();
+            });
+        });
+    </script>
+</body>
+
+</html>
