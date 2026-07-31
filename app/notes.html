@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Notes</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: white;
+            display: flex;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 1rem;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+        }
+
+        button {
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: #4f46e5;
+            color: white;
+            box-sizing: border-box;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .note {
+            background: #eef;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .note button {
+            top: 50%;
+            right: 8px;
+            border: none;
+            border-radius: 4px;
+            transform: translate(-50%);
+            color: white;
+            cursor: pointer;
+            margin: 0;
+            padding: 6px 12px;
+            background: #ff4d4f;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form id="note-form">
+            <textarea id="note-input" placeholder="Write your note..." required></textarea>
+            <button type="submit">Add Note</button>
+        </form>
+        <div id="notes-list"></div>
+    </div>
+</body>
+<script>
+    const noteForm = document.getElementById('note-form');
+    const noteInput = document.getElementById('note-input');
+    const notesList = document.getElementById('notes-list');
+
+    let notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+    function saveNotes() {
+        localStorage.setItem('notes', JSON.stringify(notes));
+    }
+
+    function renderNotes() {
+        notesList.innerHTML = '';
+        notes.forEach((note, index) => {
+            const div = document.createElement('div');
+            div.className = 'note';
+            div.textContent = note;
+
+            const delBtn = document.createElement('button');
+            delBtn.textContent = 'X';
+            delBtn.onclick = () => {
+                notes.splice(index, 1);
+                saveNotes();
+                renderNotes();
+            };
+
+            div.appendChild(delBtn);
+            notesList.appendChild(div);
+        });
+    }
+
+    noteForm.addEventListener('submit', e => {
+        e.preventDefault();
+        const note = noteInput.value.trim();
+        if (!note) return;
+        notes.push(note);
+        noteInput.value = '';
+        saveNotes();
+        renderNotes();
+    });
+
+    renderNotes();
+</script>
+
+</html>

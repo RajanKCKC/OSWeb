@@ -51,7 +51,7 @@
         </div>
     </div>
 
-    <div class="window" id="notes" style="top: calc(50% - 150px); display: none; left: calc(50% - 250px); ">
+    <div class="window" id="notes" style="top: 64px; display: none; width: 320px; height: 448px; ">
         <div class="windowheader" id="notesheader">
             <div class="controls">
                 <div class="close" id="notesclose"></div>
@@ -61,13 +61,12 @@
             <p class="window-title">Notes</p>
             <div style="width: 44px;"></div>
         </div>
-        <div class="window-content" style="background-color: #fff; margin: 6px; border-radius: 12px; width: 480px; padding: 12px; box-sizing: border-box;">
-            <input type="text" id="userInputField" placeholder="Start typing here..."
-                style="width: 100%; padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 16px; font-family: inherit; box-sizing: border-box; outline: none;" />
+        <div class="window-content" style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 0; box-sizing: border-box; overflow: hidden; flex: 1; min-height: 0;">
+             <iframe src="app/notes.html" title="Calculator" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
         </div>
     </div>
 
-    <div class="window" id="calculator" style="top: 31px; display: none; left: 32px; width: 384px; height: 576px;">
+    <div class="window" id="calculator" style="top: 32px; display: none; left: 32px; width: 384px; height: 576px;">
         <div class="windowheader" id="calculatorheader">
             <div class="controls">
                 <div class="close" id="calculatorclose"></div>
