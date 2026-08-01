@@ -149,7 +149,13 @@ document.addEventListener("DOMContentLoaded", () => {
     var calendarMaximize = document.querySelector("#calendarmaximize");
     var calendarMinimize = document.querySelector("#calendarminimize");
 
-    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow, calculatorWindow, calendarWindow].forEach((windowElement) => {
+    var mapWindow = document.querySelector("#map");
+    var mapClose = document.querySelector("#mapclose");
+    var mapIcon = document.querySelector("#mapicon");
+    var mapMaximize = document.querySelector("#mapmaximize");
+    var mapMinimize = document.querySelector("#mapminimize");
+
+    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow, calculatorWindow, calendarWindow, mapWindow].forEach((windowElement) => {
         if (windowElement) {
             dragElement(windowElement);
             addWindowTapHandling(windowElement);
@@ -381,6 +387,35 @@ document.addEventListener("DOMContentLoaded", () => {
         calendarMaximize.addEventListener("click", (e) => {
             e.stopPropagation();
             toggleMaximize(calendarWindow);
+        });
+    }
+
+    if (mapIcon && mapWindow) {
+        mapIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            selectIcon(mapIcon);
+            openWindow(mapWindow);
+        });
+    }
+
+    if (mapClose && mapWindow) {
+        mapClose.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeWindow(mapWindow);
+        });
+    }
+
+    if (mapMinimize && mapWindow) {
+        mapMinimize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMinimize(mapWindow);
+        });
+    }
+
+    if (mapMaximize && mapWindow) {
+        mapMaximize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMaximize(mapWindow);
         });
     }
 
