@@ -155,7 +155,13 @@ document.addEventListener("DOMContentLoaded", () => {
     var mapMaximize = document.querySelector("#mapmaximize");
     var mapMinimize = document.querySelector("#mapminimize");
 
-    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow, calculatorWindow, calendarWindow, mapWindow].forEach((windowElement) => {
+    var quizWindow = document.querySelector("#quiz");
+    var quizClose = document.querySelector("#quizclose");
+    var quizIcon = document.querySelector("#quizicon");
+    var quizMaximize = document.querySelector("#quizmaximize");
+    var quizMinimize = document.querySelector("#quizminimize");
+
+    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow, calculatorWindow, calendarWindow, mapWindow, quizWindow].forEach((windowElement) => {
         if (windowElement) {
             dragElement(windowElement);
             addWindowTapHandling(windowElement);
@@ -416,6 +422,35 @@ document.addEventListener("DOMContentLoaded", () => {
         mapMaximize.addEventListener("click", (e) => {
             e.stopPropagation();
             toggleMaximize(mapWindow);
+        });
+    }
+
+    if (quizIcon && quizWindow) {
+        quizIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            selectIcon(quizIcon);
+            openWindow(quizWindow);
+        });
+    }
+
+    if (quizClose && quizWindow) {
+        quizClose.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeWindow(quizWindow);
+        });
+    }
+
+    if (quizMinimize && quizWindow) {
+        quizMinimize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMinimize(quizWindow);
+        });
+    }
+
+    if (quizMaximize && quizWindow) {
+        quizMaximize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMaximize(quizWindow);
         });
     }
 
