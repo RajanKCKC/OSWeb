@@ -161,7 +161,13 @@ document.addEventListener("DOMContentLoaded", () => {
     var quizMaximize = document.querySelector("#quizmaximize");
     var quizMinimize = document.querySelector("#quizminimize");
 
-    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow, calculatorWindow, calendarWindow, mapWindow, quizWindow].forEach((windowElement) => {
+    var todoWindow = document.querySelector("#todo");
+    var todoClose = document.querySelector("#todoclose");
+    var todoIcon = document.querySelector("#todoicon");
+    var todoMaximize = document.querySelector("#todomaximize");
+    var todoMinimize = document.querySelector("#todominimize");
+
+    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow, calculatorWindow, calendarWindow, mapWindow, quizWindow, todoWindow].forEach((windowElement) => {
         if (windowElement) {
             dragElement(windowElement);
             addWindowTapHandling(windowElement);
@@ -451,6 +457,35 @@ document.addEventListener("DOMContentLoaded", () => {
         quizMaximize.addEventListener("click", (e) => {
             e.stopPropagation();
             toggleMaximize(quizWindow);
+        });
+    }
+
+    if (todoIcon && todoWindow) {
+        todoIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            selectIcon(todoIcon);
+            openWindow(todoWindow);
+        });
+    }
+
+    if (todoClose && todoWindow) {
+        todoClose.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeWindow(todoWindow);
+        });
+    }
+
+    if (todoMinimize && todoWindow) {
+        todoMinimize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMinimize(todoWindow);
+        });
+    }
+
+    if (todoMaximize && todoWindow) {
+        todoMaximize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMaximize(todoWindow);
         });
     }
 
