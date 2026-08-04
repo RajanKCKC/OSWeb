@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Tic Tac Toe</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: 'Itim', cursive;
+            background-color: #12181B;
+        }
+
+        .background {
+            background-color: #12181B;
+            height: 100vh;
+            padding-top: 1px;
+        }
+
+        .title {
+            color: white;
+            text-align: center;
+            font-size: 40px;
+        }
+
+        .display {
+            color: white;
+            font-size: 25px;
+            text-align: center;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+
+        .turn-status {
+            margin-right: 0.3rem;
+        }
+
+        .setup {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem auto 0;
+            max-width: 380px;
+        }
+
+        .setup label {
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            font-size: 16px;
+        }
+
+        .setup select {
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            background-color: #1f2a2e;
+            color: white;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .container {
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 33% 33% 33%;
+            grid-template-rows: 33% 33% 33%;
+            max-width: 300px;
+
+        }
+
+        .tile {
+            border: 1px solid white;
+            min-width: 100px;
+            min-height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            cursor: pointer;
+        }
+
+        .playerX {
+            color: #09C372;
+        }
+
+        .playerO {
+            color: #498AFB;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1em;
+        }
+
+        .controls button {
+            color: white;
+            padding: 8px;
+            border-radius: 8px;
+            border: none;
+            font-size: 20px;
+            margin-left: 1em;
+            cursor: pointer;
+        }
+
+        .restart {
+            background-color: #498AFB;
+        }
+
+        #reset {
+            background-color: #FF3860;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="background">
+        <section class="title">
+            <h1>Tic Tac Toe</h1>
+        </section>
+        <section class="display">
+            <span class="turn-status">Your turn</span>
+            <span class="display-player playerX">X</span>
+        </section>
+        <section class="setup">
+            <label>
+                Choose your symbol
+                <select id="player-symbol">
+                    <option value="X">X</option>
+                    <option value="O">O</option>
+                </select>
+            </label>
+            <label>
+                Difficulty
+                <select id="difficulty">
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </label>
+        </section>
+        <br>
+        <section class="container">
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+        </section>
+        <section class="display announcer hide"></section>
+        <section class="controls">
+            <button id="reset">Reset</button>
+        </section>
+    </main>
+
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const tiles = Array.from(document.querySelectorAll('.tile'));
+            const playerDisplay = document.querySelector('.display-player');
+            const turnStatus = document.querySelector('.turn-status');
+            const resetButton = document.querySelector('#reset');
+            const announcer = document.querySelector('.announcer');
+            const symbolSelect = document.querySelector('#player-symbol');
+            const difficultySelect = document.querySelector('#difficulty');
+
+            let board = ['', '', '', '', '', '', '', '', ''];
+            let currentPlayer = 'X';
+            let isGameActive = true;
+            let playerSymbol = symbolSelect.value;
+            let botSymbol = playerSymbol === 'X' ? 'O' : 'X';
+            let difficulty = difficultySelect.value;
+            let botTimeoutId = null;
+
+            const PLAYERX_WON = 'PLAYERX_WON';
+            const PLAYERO_WON = 'PLAYERO_WON';
+            const TIE = 'TIE';
+
+            /*
+                Indexes within the board
+                [0] [1] [2]
+                [3] [4] [5]
+                [6] [7] [8]
+            */
+
+            const winningConditions = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ];
+
+            const hasWinner = (testBoard, player) => {
+                return winningConditions.some(condition => condition.every(index => testBoard[index] === player));
+            };
+
+            const updateTurnDisplay = () => {
+                playerDisplay.innerText = currentPlayer;
+                playerDisplay.className = `display-player player${currentPlayer}`;
+                turnStatus.innerText = currentPlayer === playerSymbol ? 'Your turn' : "Bot's turn";
+            };
+
+            function handleResultValidation() {
+                let roundWon = false;
+                for (let i = 0; i <= 7; i++) {
+                    const winCondition = winningConditions[i];
+                    const a = board[winCondition[0]];
+                    const b = board[winCondition[1]];
+                    const c = board[winCondition[2]];
+                    if (a === '' || b === '' || c === '') {
+                        continue;
+                    }
+                    if (a === b && b === c) {
+                        roundWon = true;
+                        break;
+                    }
+                }
+
+                if (roundWon) {
+                    announce(currentPlayer === 'X' ? PLAYERX_WON : PLAYERO_WON);
+                    isGameActive = false;
+                    return true;
+                }
+
+                if (!board.includes('')) {
+                    announce(TIE);
+                    isGameActive = false;
+                    return true;
+                }
+
+                return false;
+            }
+
+            const announce = (type) => {
+                switch (type) {
+                    case PLAYERO_WON:
+                        announcer.innerHTML = 'Player <span class="playerO">O</span> Won';
+                        break;
+                    case PLAYERX_WON:
+                        announcer.innerHTML = 'Player <span class="playerX">X</span> Won';
+                        break;
+                    case TIE:
+                        announcer.innerText = 'Tie';
+                }
+                announcer.classList.remove('hide');
+            };
+
+            const isValidAction = (tile) => {
+                return tile.innerText !== 'X' && tile.innerText !== 'O';
+            };
+
+            const updateBoard = (index) => {
+                board[index] = currentPlayer;
+            };
+
+            const changePlayer = () => {
+                playerDisplay.classList.remove(`player${currentPlayer}`);
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                updateTurnDisplay();
+
+                if (isGameActive && currentPlayer === botSymbol) {
+                    scheduleBotMove();
+                }
+            };
+
+            const getAvailableMoves = () => {
+                return board.reduce((moves, cell, index) => {
+                    if (cell === '') {
+                        moves.push(index);
+                    }
+                    return moves;
+                }, []);
+            };
+
+            const getWinningMove = (player) => {
+                const availableMoves = getAvailableMoves();
+                return availableMoves.find(index => {
+                    const testBoard = [...board];
+                    testBoard[index] = player;
+                    return hasWinner(testBoard, player);
+                }) ?? -1;
+            };
+
+            const getRandomMove = () => {
+                const availableMoves = getAvailableMoves();
+                if (!availableMoves.length) {
+                    return null;
+                }
+                return availableMoves[Math.floor(Math.random() * availableMoves.length)];
+            };
+
+            const minimax = (testBoard, depth, isMaximizing, maximizingPlayer, opposingPlayer) => {
+                if (hasWinner(testBoard, maximizingPlayer)) {
+                    return 10 - depth;
+                }
+                if (hasWinner(testBoard, opposingPlayer)) {
+                    return depth - 10;
+                }
+                if (testBoard.every(cell => cell !== '')) {
+                    return 0;
+                }
+
+                const availableMoves = getAvailableMovesFromBoard(testBoard);
+                if (isMaximizing) {
+                    let bestScore = -Infinity;
+                    for (const move of availableMoves) {
+                        const nextBoard = [...testBoard];
+                        nextBoard[move] = maximizingPlayer;
+                        bestScore = Math.max(bestScore, minimax(nextBoard, depth + 1, false, maximizingPlayer, opposingPlayer));
+                    }
+                    return bestScore;
+                }
+
+                let bestScore = Infinity;
+                for (const move of availableMoves) {
+                    const nextBoard = [...testBoard];
+                    nextBoard[move] = opposingPlayer;
+                    bestScore = Math.min(bestScore, minimax(nextBoard, depth + 1, true, maximizingPlayer, opposingPlayer));
+                }
+                return bestScore;
+            };
+
+            const getAvailableMovesFromBoard = (testBoard) => {
+                return testBoard.reduce((moves, cell, index) => {
+                    if (cell === '') {
+                        moves.push(index);
+                    }
+                    return moves;
+                }, []);
+            };
+
+            const getBotMove = () => {
+                if (difficulty === 'easy') {
+                    return getRandomMove();
+                }
+
+                if (difficulty === 'medium') {
+                    const winningMove = getWinningMove(botSymbol);
+                    if (winningMove !== -1) {
+                        return winningMove;
+                    }
+                    const blockMove = getWinningMove(playerSymbol);
+                    if (blockMove !== -1) {
+                        return blockMove;
+                    }
+                    return getRandomMove();
+                }
+
+                let bestMove = null;
+                let bestScore = -Infinity;
+                const availableMoves = getAvailableMoves();
+
+                for (const index of availableMoves) {
+                    const testBoard = [...board];
+                    testBoard[index] = botSymbol;
+                    const score = minimax(testBoard, 0, false, botSymbol, playerSymbol);
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestMove = index;
+                    }
+                }
+
+                return bestMove ?? getRandomMove();
+            };
+
+            const botMove = () => {
+                if (!isGameActive || currentPlayer !== botSymbol) {
+                    return;
+                }
+
+                const moveIndex = getBotMove();
+                if (moveIndex === null) {
+                    return;
+                }
+
+                const botTile = tiles[moveIndex];
+                botTile.innerText = currentPlayer;
+                botTile.classList.add(`player${currentPlayer}`);
+                updateBoard(moveIndex);
+
+                if (handleResultValidation()) {
+                    return;
+                }
+
+                changePlayer();
+            };
+
+            const scheduleBotMove = () => {
+                if (botTimeoutId) {
+                    clearTimeout(botTimeoutId);
+                }
+                botTimeoutId = window.setTimeout(botMove, 350);
+            };
+
+            const userAction = (tile, index) => {
+                if (isValidAction(tile) && isGameActive && currentPlayer === playerSymbol) {
+                    tile.innerText = currentPlayer;
+                    tile.classList.add(`player${currentPlayer}`);
+                    updateBoard(index);
+
+                    if (handleResultValidation()) {
+                        return;
+                    }
+
+                    changePlayer();
+                }
+            };
+
+            const resetBoard = () => {
+                if (botTimeoutId) {
+                    clearTimeout(botTimeoutId);
+                    botTimeoutId = null;
+                }
+
+                board = ['', '', '', '', '', '', '', '', ''];
+                isGameActive = true;
+                announcer.classList.add('hide');
+                currentPlayer = 'X';
+                playerSymbol = symbolSelect.value;
+                botSymbol = playerSymbol === 'X' ? 'O' : 'X';
+                difficulty = difficultySelect.value;
+                updateTurnDisplay();
+
+                tiles.forEach(tile => {
+                    tile.innerText = '';
+                    tile.classList.remove('playerX');
+                    tile.classList.remove('playerO');
+                });
+
+                if (playerSymbol === 'O') {
+                    scheduleBotMove();
+                }
+            };
+
+            tiles.forEach((tile, index) => {
+                tile.addEventListener('click', () => userAction(tile, index));
+            });
+
+            resetButton.addEventListener('click', resetBoard);
+            symbolSelect.addEventListener('change', resetBoard);
+            difficultySelect.addEventListener('change', resetBoard);
+
+            resetBoard();
+        });
+    </script>
+
+</body>
+
+</html>

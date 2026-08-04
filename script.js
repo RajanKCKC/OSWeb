@@ -167,7 +167,13 @@ document.addEventListener("DOMContentLoaded", () => {
     var todoMaximize = document.querySelector("#todomaximize");
     var todoMinimize = document.querySelector("#todominimize");
 
-    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow, calculatorWindow, calendarWindow, mapWindow, quizWindow, todoWindow].forEach((windowElement) => {
+    var tictactoeWindow = document.querySelector("#tictactoe");
+    var tictactoeClose = document.querySelector("#tictactoeclose");
+    var tictactoeIcon = document.querySelector("#tictactoeicon");
+    var tictactoeMaximize = document.querySelector("#tictactoemaximize");
+    var tictactoeMinimize = document.querySelector("#tictactoeminimize");
+
+    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow, calculatorWindow, calendarWindow, mapWindow, quizWindow, todoWindow, tictactoeWindow].forEach((windowElement) => {
         if (windowElement) {
             dragElement(windowElement);
             addWindowTapHandling(windowElement);
@@ -486,6 +492,35 @@ document.addEventListener("DOMContentLoaded", () => {
         todoMaximize.addEventListener("click", (e) => {
             e.stopPropagation();
             toggleMaximize(todoWindow);
+        });
+    }
+
+    if (tictactoeIcon && tictactoeWindow) {
+        tictactoeIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            selectIcon(tictactoeIcon);
+            openWindow(tictactoeWindow);
+        });
+    }
+
+    if (tictactoeClose && tictactoeWindow) {
+        tictactoeClose.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeWindow(tictactoeWindow);
+        });
+    }
+
+    if (tictactoeMinimize && tictactoeWindow) {
+        tictactoeMinimize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMinimize(tictactoeWindow);
+        });
+    }
+
+    if (tictactoeMaximize && tictactoeWindow) {
+        tictactoeMaximize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMaximize(tictactoeWindow);
         });
     }
 
