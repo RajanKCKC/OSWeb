@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+        img {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>QR Code Generator</h1>
+        <p>Enter text or a URL to generate a QR code:</p>
+        <input type="text" id="text-input" placeholder="Enter text or URL">
+        <br><br>
+        <select id="size-select">
+            <option value="100x100">100x100</option>
+            <option value="200x200" selected>200x200</option>
+            <option value="300x300">300x300</option>
+            <option value="400x400">400x400</option>
+            <option value="500x500">500x500</option>
+        </select>
+        <br><br>
+        <button onclick="generateQR()">Generate QR Code</button>
+        <br><br>
+        <img id="qr-code" src="" alt="QR Code">
+    </center>
+
+    <script>
+        function generateQR() {
+            const text = document.getElementById('text-input').value;
+            const qrCode = document.getElementById('qr-code');
+            const size = document.getElementById('size-select').value;
+            qrCode.src = `https://api.qrserver.com/v1/create-qr-code/?size=${size}&data=${encodeURIComponent(text)}`;
+        }
+    </script>
+</body>
+</html>
