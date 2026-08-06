@@ -179,7 +179,13 @@ document.addEventListener("DOMContentLoaded", () => {
     var qrMaximize = document.querySelector("#qrmaximize");
     var qrMinimize = document.querySelector("#qrminimize");
 
-    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow, calculatorWindow, calendarWindow, mapWindow, quizWindow, todoWindow, tictactoeWindow, qrWindow].forEach((windowElement) => {
+    var githubfinderWindow = document.querySelector("#githubfinder");
+    var githubfinderClose = document.querySelector("#githubfinderclose");
+    var githubfinderIcon = document.querySelector("#githubfindericon");
+    var githubfinderMaximize = document.querySelector("#githubfindermaximize");
+    var githubfinderMinimize = document.querySelector("#githubfinderminimize");
+
+    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow, calculatorWindow, calendarWindow, mapWindow, quizWindow, todoWindow, tictactoeWindow, qrWindow, githubfinderWindow].forEach((windowElement) => {
         if (windowElement) {
             dragElement(windowElement);
             addWindowTapHandling(windowElement);
@@ -556,6 +562,35 @@ document.addEventListener("DOMContentLoaded", () => {
         qrMaximize.addEventListener("click", (e) => {
             e.stopPropagation();
             toggleMaximize(qrWindow);
+        });
+    }
+
+    if (githubfinderIcon && githubfinderWindow) {
+        githubfinderIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            selectIcon(githubfinderIcon);
+            openWindow(githubfinderWindow);
+        });
+    }
+
+    if (githubfinderClose && githubfinderWindow) {
+        githubfinderClose.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeWindow(githubfinderWindow);
+        });
+    }
+
+    if (githubfinderMinimize && githubfinderWindow) {
+        githubfinderMinimize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMinimize(githubfinderWindow);
+        });
+    }
+
+    if (githubfinderMaximize && githubfinderWindow) {
+        githubfinderMaximize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMaximize(githubfinderWindow);
         });
     }
 
