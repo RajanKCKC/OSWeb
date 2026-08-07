@@ -2,12 +2,48 @@
 <html>
     <head>
         <title>Welcome</title>
+        <style>
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+                background-color: #ffffff;
+                color: #111;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                padding: 20px;
+            }
+
+            .content {
+                text-align: center;
+                max-width: 520px;
+            }
+
+            img {
+                width: 80px;
+                height: 80px;
+                border-radius: 50px;
+                margin-bottom: 12px;
+            }
+
+            h1 {
+                margin: 0 0 10px;
+                font-size: 24px;
+            }
+
+            p {
+                margin: 0;
+                line-height: 1.5;
+                color: #333;
+            }
+        </style>
     </head>
     <body>
-       <center>
-            <img src="../img/pic.jpg" alt="OS Image" style="width: 80px; height: 80px; border-radius: 50px;">
-        <h1>Welcome to OS-Web</h1>
-        <p>OS-Web is a lightweight, open-source web operating system built with HTML, CSS, and JavaScript. It brings a desktop-style experience to your browser with apps, a taskbar, and a simple interface that you can explore, customize, and improve.</p>
-        </center>
+        <div class="content">
+            <img src="../img/pic.jpg" alt="OS Image">
+            <h1>Welcome to OS-Web</h1>
+            <p>OS-Web is a lightweight, open-source web operating system built with HTML, CSS, and JavaScript. It brings a desktop-style experience to your browser with apps, a taskbar, and a simple interface that you can explore, customize, and improve.</p>
+        </div>
     </body>
 </html>

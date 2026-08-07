@@ -185,7 +185,13 @@ document.addEventListener("DOMContentLoaded", () => {
     var githubfinderMaximize = document.querySelector("#githubfindermaximize");
     var githubfinderMinimize = document.querySelector("#githubfinderminimize");
 
-    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow, calculatorWindow, calendarWindow, mapWindow, quizWindow, todoWindow, tictactoeWindow, qrWindow, githubfinderWindow].forEach((windowElement) => {
+    var passwordWindow = document.querySelector("#password");
+    var passwordClose = document.querySelector("#passwordclose");
+    var passwordIcon = document.querySelector("#passwordicon");
+    var passwordMaximize = document.querySelector("#passwordmaximize");
+    var passwordMinimize = document.querySelector("#passwordminimize");
+
+    [welcomeWindow, notesWindow, minecraftWindow, solitaireWindow, googleWindow, paintWindow, calculatorWindow, calendarWindow, mapWindow, quizWindow, todoWindow, tictactoeWindow, qrWindow, githubfinderWindow, passwordWindow].forEach((windowElement) => {
         if (windowElement) {
             dragElement(windowElement);
             addWindowTapHandling(windowElement);
@@ -591,6 +597,35 @@ document.addEventListener("DOMContentLoaded", () => {
         githubfinderMaximize.addEventListener("click", (e) => {
             e.stopPropagation();
             toggleMaximize(githubfinderWindow);
+        });
+    }
+
+    if (passwordIcon && passwordWindow) {
+        passwordIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            selectIcon(passwordIcon);
+            openWindow(passwordWindow);
+        });
+    }
+
+    if (passwordClose && passwordWindow) {
+        passwordClose.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeWindow(passwordWindow);
+        });
+    }
+
+    if (passwordMinimize && passwordWindow) {
+        passwordMinimize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMinimize(passwordWindow);
+        });
+    }
+
+    if (passwordMaximize && passwordWindow) {
+        passwordMaximize.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleMaximize(passwordWindow);
         });
     }
 

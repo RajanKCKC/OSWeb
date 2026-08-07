@@ -85,6 +85,12 @@
             <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">QR Generator
             </p>
         </div>
+
+        <div class="icon" id="passwordicon">
+            <img src="img/password.png" alt="Password Meter App" style="padding: 4px; box-sizing: border-box; cursor: pointer;">
+            <p class="appname" style="color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8); margin-top: 6px;">Password Meter
+            </p>
+        </div>
     </div>
 
     <div class="window" id="notes" style="top: 64px; display: none; width: 320px; height: 448px; ">
@@ -164,6 +170,22 @@
         <div class="window-content"
             style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 0; box-sizing: border-box; overflow: hidden; flex: 1; min-height: 0;">
             <iframe src="app/todo.html" title="Todo" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
+        </div>
+    </div>
+
+    <div class="window" id="password" style="top: 32px; display: none; left: 64px; width: 574px; height: 574px;">
+        <div class="windowheader" id="passwordheader">
+            <div class="controls">
+                <div class="close" id="passwordclose"></div>
+                <div class="minimize" id="passwordminimize"></div>
+                <div class="maximize" id="passwordmaximize"></div>
+            </div>
+            <p class="window-title">Password Meter</p>
+            <div style="width: 44px;"></div>
+        </div>
+        <div class="window-content"
+            style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 0; box-sizing: border-box; overflow: hidden; flex: 1; min-height: 0;">
+            <iframe src="app/passwordmeter.html" title="Password Meter" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
         </div>
     </div>
 
